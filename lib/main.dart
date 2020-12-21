@@ -1,34 +1,19 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:todo_list/src/home_page.dart';
 
 Future main() async {
-  final item = await fetch();
-  print(item.title);
+  runApp(MyApp());
 }
 
-Future<TodoItem> fetch() async {
-  var url = 'https://jsonplaceholder.typicode.com/todos/1';
-  var response = await http.get(url);
-  var json = jsonDecode(response.body);
-  var item = TodoItem.fromJson(json);
-  return item;
-}
-
-class TodoItem {
-  final String title;
-  final int id;
-  final int userId;
-  final bool completed;
-
-  TodoItem({this.title, this.id, this.userId, this.completed});
-
-  factory TodoItem.fromJson(Map json) {
-    return TodoItem(
-        id: json['id'],
-        title: json['title'],
-        userId: json['userId'],
-        completed: json['completed']);
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+      home: HomePage(),
+    );
   }
 }

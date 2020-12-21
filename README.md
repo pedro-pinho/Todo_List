@@ -1,3 +1,3 @@
 # todo_list
 
-A new Flutter project.
+Basic todo list flutter project, made for study purposes.
