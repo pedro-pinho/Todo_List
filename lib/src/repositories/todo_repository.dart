@@ -2,8 +2,16 @@ import 'package:dio/dio.dart';
 import 'package:todo_list/src/models/todo_model.dart';
 
 class TodoRepository {
-  final dio = Dio();
+  Dio dio;
   final String url = 'https://jsonplaceholder.typicode.com/todos';
+
+  TodoRepository([Dio dio]) {
+    if (dio == null) {
+      this.dio = Dio();
+    } else {
+      this.dio = dio;
+    }
+  }
 
   Future<List<TodoModel>> fetchAll() async {
     final response = await dio.get(url);
