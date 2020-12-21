@@ -5,24 +5,11 @@ class TodoRepository {
   Dio dio;
   final String url = 'https://jsonplaceholder.typicode.com/todos';
 
-  TodoRepository([Dio dio]) {
-    if (dio == null) {
-      this.dio = Dio();
-    } else {
-      this.dio = dio;
-    }
-  }
+  TodoRepository([Dio dio]) : this.dio = dio ?? Dio();
 
   Future<List<TodoModel>> fetchAll() async {
     final response = await dio.get(url);
     final list = response.data as List;
-
-    List<TodoModel> todos = [];
-    for (var json in list) {
-      final todo = TodoModel.fromJson(json);
-      todos.add(todo);
-    }
-
-    return todos;
+    return list.map((json) => TodoModel.fromJson(json)).toList();
   }
 }
