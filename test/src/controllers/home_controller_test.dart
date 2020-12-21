@@ -12,8 +12,15 @@ main() {
 
   test('Fill variable todo', () async {
     when(repository.fetchAll()).thenAnswer((_) async => [TodoModel()]);
-
+    expect(controller.state, HomeState.start);
     await controller.start();
+    expect(controller.state, HomeState.success);
     expect(controller.todos.isNotEmpty, true);
+  });
+  test('Fail to start due to req error', () async {
+    when(repository.fetchAll()).thenThrow(Exception());
+    expect(controller.state, HomeState.start);
+    await controller.start();
+    expect(controller.state, HomeState.error);
   });
 }
